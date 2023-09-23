@@ -9,7 +9,7 @@
     - `asfreq()` select data based on specified freq and returns the value at the end of specified interval
 - Assume a temp sensor takes measurement every minute, and if we do not need to have minute-level precision, we can take the average of 60 mins measurement
 
-## Shifting
+## Shifting (Lag)
 
 - Time series data analysis require shift data points to make a comparison
   - `shift` shifts the data

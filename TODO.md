@@ -1,5 +1,9 @@
 # TODO List
 
+## Time Series Functions
+### Techinical Indicator
+- [ ] Lag, Rolling or (Lag + Rolling)
+- [ ] Rate of Change
 ## Autoregressive Model
 
 - [ ] [Time Series: Interpreting ACF and PACF](https://www.kaggle.com/code/iamleonie/time-series-interpreting-acf-and-pacf/notebook)
