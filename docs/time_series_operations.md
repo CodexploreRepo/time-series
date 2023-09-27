@@ -7,6 +7,7 @@
   - can be done using
     - `resample()` aggregates data based on specified freq and aggre function
     - `asfreq()` select data based on specified freq and returns the value at the end of specified interval
+      - `df.asfreq('MS')` 'MS' stands for "Month Start" frequency. This method allows you to convert the frequency of your time series data to monthly data starting at the beginning of each month.
 - Assume a temp sensor takes measurement every minute, and if we do not need to have minute-level precision, we can take the average of 60 mins measurement
 
 ## Shifting (Lag)

@@ -1,5 +1,8 @@
 holidays
-pandas
-numpy
 matplotlib
+numpy
+pandas
+pmdarima
 seaborn
+statsmodels
+skforecast
