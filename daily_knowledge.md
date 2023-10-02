@@ -1,5 +1,7 @@
 # Daily Knowledge
-
+## Day 2
+### Tips
+- When creating time-series features (especially rolling/lag), remember to DROP `NaN`
 ## Day 1
 ### Differentiation 
 - ARIMA assumes the stationarity of the data. If non-stationarity is found, the series should be differenced until stationarity is achieved. This analysis helps to determine the optimal value of the parameter  $𝑑$.
