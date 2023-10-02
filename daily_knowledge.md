@@ -1,7 +1,7 @@
 # Daily Knowledge
 ## Day 2
 ### Tips
-- When creating time-series features (especially rolling/lag), remember to DROP `NaN`
+- When creating time-series features (especially rolling or lag), remember to DROP `NaN`
 ## Day 1
 ### Differentiation 
 - ARIMA assumes the stationarity of the data. If non-stationarity is found, the series should be differenced until stationarity is achieved. This analysis helps to determine the optimal value of the parameter  $𝑑$.
@@ -23,6 +23,7 @@ df['weekofyear'] = df['date'].dt.weekofyear
 ```
 - Also can include `is_holiday` col
 ```Python
+import holidays
 us_holidays = holidays.US()
 df['ds'] = df.index
 df['isholiday'] = df['ds'].apply(lambda x : x in us_holidays).astype(np.int32)
