@@ -1,13 +1,13 @@
 # Daily Knowledge
 
 ## Day 1
-### Differentiation
+### Differentiation 
 - ARIMA assumes the stationarity of the data. If non-stationarity is found, the series should be differenced until stationarity is achieved. This analysis helps to determine the optimal value of the parameter  $𝑑$.
 - `df.diff()` calculates the difference of a DataFrame element compared with another element in the DataFrame (default is element in previous row).
     - Note: usually go along with dropna `df.diff().dropna()`
-### Time Series Features
+### Feature Engineering
+#### Time Series Features
 - Time series features to see how the trends are impacted by day of week, hour, time of year
-
 ```Python
 df['date'] = df.index
 df['hour'] = df['date'].dt.hour
@@ -19,7 +19,17 @@ df['dayofyear'] = df['date'].dt.dayofyear
 df['dayofmonth'] = df['date'].dt.day
 df['weekofyear'] = df['date'].dt.weekofyear
 ```
+- Also can include `is_holiday` col
+```Python
+us_holidays = holidays.US()
+df['ds'] = df.index
+df['isholiday'] = df['ds'].apply(lambda x : x in us_holidays).astype(np.int32)
+df.drop(columns = ['ds'], inplace=True)
+```
+#### Technical Indicator Features
 - **Lag** features are added to convert time series forecasting as a supervised Machine Learning Problem.
+- **Rolling (mean, std, min, max)**
+- **Rate of Change**
 ### FB Prophet Model
 - Prophet model expects the dataset to be named a specific way.
     - Including the holidays
