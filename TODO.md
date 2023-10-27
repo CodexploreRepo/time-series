@@ -14,9 +14,10 @@
 - [ ] [Autoregressive Model](https://www.kaggle.com/code/timmate/autoregressive-model/notebook)
 - [ ] [Box-Cox Transformation](https://towardsdatascience.com/box-cox-transform-for-time-series-cc45f26082c6)
 
-### ARIMA & ARIMAX
+### ARIMA & ARIMAX Model
 - [ ] [ARIMA Model for Time Series Forecasting](https://www.kaggle.com/code/prashant111/arima-model-for-time-series-forecasting/notebook)
 - [ ] [Avocado Price Forecast : ARIMA - SARIMA | Detailed](https://www.kaggle.com/code/tanmay111999/avocado-price-forecast-arima-sarima-detailed)
-
+### Holt-Winters Model
+- [ ] [A Thorough Introduction to Holt-Winters Forecasting](https://medium.com/analytics-vidhya/a-thorough-introduction-to-holt-winters-forecasting-c21810b8c0e6)
 ### Prophet
 - [ ] [Tutorial: Time Series Forecasting with Prophet](https://www.kaggle.com/code/prashant111/tutorial-time-series-forecasting-with-prophet)
