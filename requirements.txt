@@ -5,4 +5,4 @@ pandas
 pmdarima
 seaborn
 statsmodels
-skforecast
+# skforecast
