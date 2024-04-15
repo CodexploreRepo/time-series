@@ -1,15 +1,29 @@
 # Daily Knowledge
+
 ## Day 2
+
 ### Tips
+
 - When creating time-series features (especially rolling or lag), remember to DROP `NaN`
+
+### Backtesting
+
+- Backtesting methods with the use of Scikit-learn's `TimeSeriesSplit`
+
 ## Day 1
-### Differentiation 
-- ARIMA assumes the stationarity of the data. If non-stationarity is found, the series should be differenced until stationarity is achieved. This analysis helps to determine the optimal value of the parameter  $𝑑$.
+
+### Differentiation
+
+- ARIMA assumes the stationarity of the data. If non-stationarity is found, the series should be differenced until stationarity is achieved. This analysis helps to determine the optimal value of the parameter $𝑑$.
 - `df.diff()` calculates the difference of a DataFrame element compared with another element in the DataFrame (default is element in previous row).
-    - Note: usually go along with dropna `df.diff().dropna()`
+  - Note: usually go along with dropna `df.diff().dropna()`
+
 ### Feature Engineering
+
 #### Time Series Features
+
 - Time series features to see how the trends are impacted by day of week, hour, time of year
+
 ```Python
 df['date'] = df.index
 df['hour'] = df['date'].dt.hour
@@ -21,7 +35,9 @@ df['dayofyear'] = df['date'].dt.dayofyear
 df['dayofmonth'] = df['date'].dt.day
 df['weekofyear'] = df['date'].dt.weekofyear
 ```
+
 - Also can include `is_holiday` col
+
 ```Python
 import holidays
 us_holidays = holidays.US()
@@ -29,17 +45,24 @@ df['ds'] = df.index
 df['isholiday'] = df['ds'].apply(lambda x : x in us_holidays).astype(np.int32)
 df.drop(columns = ['ds'], inplace=True)
 ```
+
 #### Technical Indicator Features
-- **Lag** features are added to convert time series forecasting as a supervised Machine Learning Problem.
+
+- **Lag** features are added to convert time series forecasting as a supervised Machine Learning problem
+  - Lag with respect to a time step $t$ is defined as the values of the series at previous $t$ time steps.
+  - For example, lag 1 is the value at time step $t-1$ and lag $m$ is the value at time step $t-m$
 - **Rolling (mean, std, min, max)**
 - **Rate of Change**
+
 ### FB Prophet Model
+
 - Prophet model expects the dataset to be named a specific way.
-    - Including the holidays
+  - Including the holidays
+
 ```Python
 from fbprophet import Prophet
 
-# Setup and train model and fit by convert 
+# Setup and train model and fit by convert
 # .reset_index() to convert datetime index to 'Datetime' col
 # 'Datetime' col to 'ds'
 # 'Target' col to 'y'
@@ -70,6 +93,7 @@ holiday_df['ds'] = pd.to_datetime(holiday_df['ds'])
 # Init and train model with holidays
 model_with_holidays = Prophet(holidays=holiday_df)
 ```
+
 ### Tips
 
 - When dealing with time-series data, it is better to use dates as the index of the dataframe

@@ -12,6 +12,8 @@
 
 ## Shifting (Lag)
 
+- Lag with respect to a time step $t$ is defined as the values of the series at previous $t$ time steps.
+  - For example, lag 1 is the value at time step $t-1$ and lag $m$ is the value at time step $t-m$
 - Time series data analysis require shift data points to make a comparison
   - `shift` shifts the data
     - For example: `df['price'].shift(2)` means that the first two records will be `NaN` (or empty), only starting from the 3rd record will have the value of the first one (i.e. lag=2)
@@ -32,7 +34,9 @@ for window in [6,12,24]:
   df[f'pjme_{window}_hrs_rolling_max'] = df['PJME_MW'].rolling(window = window).max()
   df[f'pjme_{window}_hrs_rolling_min'] = df['PJME_MW'].rolling(window = window).min()
 ```
+
 ## Percentage Change (Rate of Change)
+
 - Rate of Change is to calculate how much percentage a variable has changed over a time period
-  - Formula: rate_of_change (roc) $= (y_t - y_{t-1}) /y_{t-1}$
+  - Formula: rate*of_change (roc) $= (y_t - y*{t-1}) /y\_{t-1}$
 - `df['col'].pct_change()` default `period = 1`
