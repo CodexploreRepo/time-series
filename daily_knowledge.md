@@ -4,6 +4,9 @@
 
 ### Tips
 
+- Forecasting feature selection problem: at time making predictions, we cannot use the features that are not available.
+  - For example, if we cannot use the temperature as a feature to predict power consumption over the next day as we dont have the value of temperature in the next day
+- List of Time-series models: https://unit8co.github.io/darts/
 - When creating time-series features (especially rolling or lag), remember to DROP `NaN`
 
 ### Backtesting
@@ -22,7 +25,8 @@
 
 #### Time Series Features
 
-- Time series features to see how the trends are impacted by day of week, hour, time of year
+- Time series features to see how the trends are impacted by day of week, hour, time of year + holiday factor.
+  - Note: for Weekday factor we can assign different weight for different day in a week
 
 ```Python
 df['date'] = df.index
