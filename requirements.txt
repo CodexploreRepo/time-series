@@ -2,6 +2,7 @@ holidays
 matplotlib
 numpy
 pandas
+plotly
 pmdarima
 seaborn
 statsmodels

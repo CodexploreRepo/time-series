@@ -33,3 +33,7 @@
 ### Prophet
 
 - [ ] [Tutorial: Time Series Forecasting with Prophet](https://www.kaggle.com/code/prashant111/tutorial-time-series-forecasting-with-prophet)
+
+## Books
+
+- [Time Series Forecasting](https://learning.oreilly.com/library/view/time-series-forecasting/) and [Github](https://github.com/marcopeix/TimeSeriesForecastingInPython/tree/master)
