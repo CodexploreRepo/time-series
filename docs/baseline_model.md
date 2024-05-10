@@ -17,6 +17,14 @@
     - For example, if the EPS is $0.71 for this quarter, then the EPS will also be $0.71 for next quarter.
   - Method 3 (Last season): to repeat that pattern into the future if there is a cyclical pattern in the data
     - For example, if the EPS is $14.04 for the first quarter of 1979, then the EPS for the first quarter of 1980 will also be $14.04.
+  - Method 4 (Drift method): a modification of predicting the last known value.
+    - In this case, we allow the values to increase or decrease over time.
+    - The rate at which values will change in the future is equal to that seen in the train set.
+    - Therefore, it is equivalent to calculating the slope between the first and last value of the train set and simply extrapolating this straight line into the future.
+      - $y_f$ the last value in the training set
+      - $y_i$ the initial value in the training set
+        $$\text{slope (drift)}= \frac{\Delta y}{\Delta x} = \frac {y_f - y_i}{\text{number of timesteps} - 1}$$
+        $$forecast = slope * timestep + y_i$$
 
 ## How to define the baseline model for a time-series
 

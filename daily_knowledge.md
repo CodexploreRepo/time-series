@@ -2,19 +2,43 @@
 
 ## Day 3
 
-### Tips
+### Approach to time-series forecasting problems
 
-- Modelling - `Random Walk`: There are instances where the simplest (naive forecasting) methods will yield the best forecasts in compared with sophisticated methods such as statistical or deep learning models. This is the case when we face a **random walk** process.
+#### Random Walk
+
+- There are instances where the simplest (naive forecasting) methods will yield the best forecasts in compared with sophisticated methods such as statistical or deep learning models. This is the case when we face a **random walk** process.
+- A `random walk` is a sequence where the **first difference** is **not autocorrelated** and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
+  - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
+- If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
 
 ## Day 2
 
-### How to define the baseline model for a time-series
+### Baseline models (naive) for time series
 
-- We can experiment four different baselines:
+- For time series, there are certain methods of heuristics or simple statistics to define the baseline model, namely:
+  - Method 1 (Mean): to compute the mean of the values over **a certain period** or **entire period** and assume that future values will be equal to that mean.
+    - For example, in the context of predicting the EPS for Johnson & Johnson, the average EPS between 1960 and 1979 was $4.31. Therefore the EPS over the next four quarters of 1980 to be equal to $4.31 per quarter.
+  - Method 2 (Last known value): to naively forecast the last recorded data point.
+    - For example, if the EPS is $0.71 for this quarter, then the EPS will also be $0.71 for next quarter.
+  - Method 3 (Last season): to repeat that pattern into the future if there is a cyclical pattern in the data
+    - For example, if the EPS is $14.04 for the first quarter of 1979, then the EPS for the first quarter of 1980 will also be $14.04.
+  - Method 4 (Drift method): a modification of predicting the last known value.
+    - In this case, we allow the values to increase or decrease over time.
+    - The rate at which values will change in the future is equal to that seen in the train set.
+    - Therefore, it is equivalent to calculating the slope between the first and last value of the train set and simply extrapolating this straight line into the future.
+      - $y_f$ the last value in the training set
+      - $y_i$ the initial value in the training set
+        $$\text{slope (drift)}= \frac{\Delta y}{\Delta x} = \frac {y_f - y_i}{\text{number of timesteps} - 1}$$
+        $$forecast = slope * timestep + y_i$$
+
+#### How to define the baseline model for a time-series
+
+- We can experiment 5 different baselines:
   - The mean of the entire training set (`hist_mean`)
   - The mean of the last year in the training set (`last_year_mean`)
   - The last known value of the train set (`last`)
   - The naive seasonal forecast (`naive_seasonal`)
+  - The drift forecast
 - Each baseline was then evaluated on a test set using the MAPE metric
 - For the predicting EPS for Johnson & Johnson model,
   - Train-test split:
