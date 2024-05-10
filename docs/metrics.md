@@ -10,3 +10,10 @@
   - $F_i$ is the forecast value at point $i$ in time
   - $n$ is simply the number of forecasts.
     $$ \text{MAPE} = \frac {1}{n} \sum_i{\left\lvert{\frac{A_i-F_i}{A_i}}\right\rvert}$$
+- Drawback: we cannot use MAPE if the series contains 0-value it is impossible to calculate the percentage difference from an observed value of 0 because that implies a division by 0.
+
+## Mean Squared Error (MSE)
+
+- In case the series contains 0-value, so we are unable to use MAPE, so MSE is a good option.
+- How to know if the MSE is good or bad ?
+  - For example, for the random walk series with the range varies from -30 to 30. The best forecast produces the MSE exceeds 300. This is an extremely high value considering that our random walk dataset does not exceed the value of 30.

@@ -1,6 +1,6 @@
 # Baseline Model
 
-# Baseline Model
+- [Notebook for Baseline Model](../notebook/baseline_model.ipynb)
 
 ## Introduction
 

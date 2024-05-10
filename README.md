@@ -6,14 +6,15 @@
 
 ## Modelling
 
-- [EDA - Stationary & Differentiation](./docs/eda_stationary_differentiation.md)
 - [Baseline Model](./docs/baseline_model.md)
 - [Random Walk](./docs/random_walk.md)
+  - [EDA: Stationary](./docs/eda/eda_stationary.md)
+  - [EDA: Autocorrelation](./docs/eda/eda_autocorrelation.md)
 - [Metrics](./docs/metrics.md)
 
 ### Statistical Forecasting Models
 
-- [ARIMA & S-ARIMA-X](./docs/arima_sarimax.md)
+- [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
 
 ### ML Models
 
