@@ -81,7 +81,7 @@ Fold 2:
 
 #### Backtesting with intermittent refit
 
-- The model is retrained every $n` iterations of predictions.
+- The model is retrained every $n$ iterations of predictions.
 - This strategy usually achieves a good balance between the computational cost of retraining and avoiding model degradation.
 
 <p align="center"><img src="../assets/img/backtesting_intermittent_refit.gif"></p>
