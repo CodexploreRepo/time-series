@@ -8,7 +8,7 @@
   - If yes, using [naive forecasting methods](#baseline-models-naive-for-time-series)\*\* as we cannot model the random process. Else, move to Step 2.
 - Step 2: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
   - In this case, the time series can be approximated by
-    - Mmoving Average $MA(q)$ model
+    - Moving Average $MA(q)$ model
     - Autoregressive $AR(p)$ model
     - Autoregressive Moving Average $ARMA(p,q)$ model.
 
@@ -18,6 +18,28 @@
 - A `random walk` is a sequence where the **first difference** is **not autocorrelated** (i.e.: ACF will show no significant coefficients after lag 0) and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
   - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
 - If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
+
+#### Moving Average
+
+- Defining a moving average process $MA(q)$: expresses the present value as a linear combination of
+  - The **mean** of the series ($\mu$)
+  - The _current_ ($\epsilon_t$) & _past_ ($\epsilon_{t-q}$) **error terms**
+    - Those error terms are assumed to be _mutually independent_ and _normally distributed_, just like white noise.
+    - The _magnitude of the impact_ of **past errors on the present value** is quantified using a coefficient denoted as ($\theta_q$).
+      $$y_t = \mu + \epsilon_t + \theta_1\epsilon_{t-1} + ... + \theta_q\epsilon_{t-q}$$
+  - Note 1: The order $q$ of the moving average model determines the number of past error terms that affect the present value.
+- Checking stationary & using the ACF to identify the order of a moving average process
+- Forecasting a time series using the moving average model
+  - _Note 1_: MA model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
+  - _Note 2_: $MA(q)$ model can only forecast $q$ steps into the future
+  - _Note 3_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset.
+    - In order to reverse our first-order difference to the original scale,
+      - For $y_1$, we need to add an initial value $y_0$ to the first differenced value $y_1'$.
+      - For $y_2$, we need to add an initial value $y_0$ with a cumulative sum of the differenced values (i.e. sum of $y_1'$ and $y_2'$)
+        $$y_1 = y_0 + y_1' = y_0 + y_1– y_0 = y_1$$
+        $$y_2 = y_0 + y_1' + y_2' = y_0 + y_1– y_0 + y_2– y_1 = (y_0– y_0) + (y_1– y_1) + y_2 = y_2$$
+
+<p align="center"><img src="./assets/img/first-order-differencing.png" height=300><br>Visualizing a first-order difference</p>
 
 ## Day 2
 
