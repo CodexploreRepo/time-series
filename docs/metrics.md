@@ -14,6 +14,13 @@
 
 ## Mean Squared Error (MSE)
 
-- In case the series contains 0-value, so we are unable to use MAPE, so MSE is a good option.
+- When to use MSE ?
+  - In case the series contains 0-value, so we are unable to use MAPE, so MSE is a good option.
+  - In case the prediction range is small (0.1 or 1), and we want to amplify the error
 - How to know if the MSE is good or bad ?
   - For example, for the random walk series with the range varies from -30 to 30. The best forecast produces the MSE exceeds 300. This is an extremely high value considering that our random walk dataset does not exceed the value of 30.
+
+## Mean Absolute Error (MAE)
+
+- `mean_absolute_error` metrics is easy to interpret, as it returns the average of the absolute difference between the predicted and actual values, instead of a squared difference like the **MSE**.
+- For example, `MAE=2765` means that the actual prediction will be either above or below the actual value around $2765
