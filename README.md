@@ -14,6 +14,8 @@
 
 ### Statistical Forecasting Models
 
+- [Introduction](./docs/statistical_models/intro.md)
+- [Moving Average (MA) Model]
 - [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
 
 ### ML Models

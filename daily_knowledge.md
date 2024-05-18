@@ -4,10 +4,18 @@
 
 ### Approach to time-series forecasting problems
 
+- Step 1: Check if the time-series is random walk process where its **first difference** is **stationary** (using ADF, KPSS test) & **no autocorrelation** (i.e.: ACF will show no significant coefficients after lag 0)
+  - If yes, using [naive forecasting methods](#baseline-models-naive-for-time-series)\*\* as we cannot model the random process. Else, move to Step 2.
+- Step 2: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
+  - In this case, the time series can be approximated by
+    - Mmoving Average $MA(q)$ model
+    - Autoregressive $AR(p)$ model
+    - Autoregressive Moving Average $ARMA(p,q)$ model.
+
 #### Random Walk
 
 - There are instances where the simplest (naive forecasting) methods will yield the best forecasts in compared with sophisticated methods such as statistical or deep learning models. This is the case when we face a **random walk** process.
-- A `random walk` is a sequence where the **first difference** is **not autocorrelated** and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
+- A `random walk` is a sequence where the **first difference** is **not autocorrelated** (i.e.: ACF will show no significant coefficients after lag 0) and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
   - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
 - If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
 
