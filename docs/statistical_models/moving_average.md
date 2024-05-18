@@ -33,6 +33,20 @@
   - Note 1: The order $q$ of the moving average model determines the number of past error terms that affect the present value.
   - Note 2: The $MA(q)$ model is **only able to forecast $q$ steps into the future** as it is linearly dependent on $q$ past error terms.
 
+### Simulating an MA process
+
+- Simulate an MA(3) process with the mean $\mu=0$ and current error term $\epsilon_t=0$ are zeros
+  - $y_t = 0.9\theta_{t–1} + 0.3\theta_{t–2} + 0.2\theta_{t–3}$
+
+```Python
+from statsmodels.tsa.arima_process import ArmaProcess
+# MA(3)
+ma3 = np.array([1, 0.9, 0.3, 0.2]) # yt = 0.9 * theta(t-1) + 0.3 * theta(t-2) + 0.2* theta(t-3)
+ar3 = np.array([1,  0,    0,  0])
+
+MA3_process = ArmaProcess(ar3, ma3).generate_sample(nsample=10000)
+```
+
 ## Identifying MA process & the order of MA model
 
 <p align="center"><img src="../../assets/img/moving-average-identification-framework.png" height=500><br>Steps to identify the order of a moving average (MA) process</p>
