@@ -21,7 +21,14 @@
 
 - There are instances where the simplest (naive forecasting) methods will yield the best forecasts in compared with sophisticated methods such as statistical or deep learning models. This is the case when we face a **random walk** process.
 - A `random walk` is a sequence where the **first difference** is **not autocorrelated** (i.e.: ACF will show no significant coefficients after lag 0) and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
+
   - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
+  <p align="center"><img src="./assets/img/random-walk-acf.png" width=400><br>There are no significant coefficients after lag 0 in the ACF plot</p>
+
+  - The shaded area represents a confidence interval.
+    - If a point is within the shaded area, then it is not significantly
+    - Otherwise, the autocorrelation coefficient is significant.
+
 - If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
 
 #### Moving Average Process
@@ -34,6 +41,8 @@
       $$y_t = \mu + \epsilon_t + \theta_1\epsilon_{t-1} + ... + \theta_q\epsilon_{t-q}$$
   - Note 1: The order $q$ of the moving average model determines the number of past error terms that affect the present value.
 - Checking stationary & using the ACF to identify the order of a moving average process
+<p align="center"><img src="./assets/img/ma2_acf.png" width=400><br>ACF Plot of The Differenced Time Series of MA(2)</p>
+
 - Forecasting a time series using the moving average model
   - _Note 1_: MA model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
   - _Note 2_: $MA(q)$ model can only forecast $q$ steps into the future
@@ -50,9 +59,13 @@
 
 - Defining an autoregressive process: denoted as $AR(p)$, is the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
 - Identifying AR process & the order of AR model
-  - In the case where the autocorrelation coefficients in ACF _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
-  - This time we will have to plot the Partial Autocorrelation function (PACF) and see at which lag the coefficients suddenly become non-significant.
   <p align="center"><img src="./assets/img/autoregressive-identification-framework.png" height=700><br>Steps to identify the order of an autoregressive (AR) process</p>
+
+  - In the case where the autocorrelation coefficients in ACF _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
+  <p align="center"><img src="./assets/img/autoregressive-process-acf-plot-example.png" width=400><br>The plot is slowly decaying which is indicative of an autoregressive process.</p>
+
+  - This time we will have to plot the Partial Autocorrelation function (PACF) and see at which lag the coefficients suddenly become non-significant.
+
 - Defining the partial autocorrelation function (PACF):
   - Suppose we have the following AR(2) process: $y_t = 0.33y_{t–1} + 0.50y_{t–2}$
   - In order to measure the correlation between $y_t$ and $y_{t-2}$,
@@ -64,6 +77,10 @@
         - This is because the $y_{t-2}$ also influencs on $y_{t-1}$ and $y_{t-1}$ then influences $y_t$
     - Partial Autocorrelation fuction (`PACF`) measures only the **direct** impact between each lag value, say $y_{t-2}$, and the $y_t$ and remove the influence of correlated lagged values, say $y_{t-1}$, in between (a.k.a. _confounding variables_)
 - Using the PACF plot to determine the order $p$ of a stationary $AR(p)$ process: the **coefficients will be non-significant** after lag $p$.
+
+  - The coefficients are non-significant after lag 3.
+  <p align="center"><img src="./assets/img/autoregressive-process-pacf-plot-example.png" width=400><br>PACF plot on the stationary process of AR(3)</p>
+
 - Forecasting a time series using the autoregressive model
   - _Note 1_: AR model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
   - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
