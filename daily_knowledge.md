@@ -10,9 +10,12 @@
   - Note on Seasonality: if there is no cyclical pattern, so we can rule out the presence of seasonality.
 - Step 2: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
   - In this case, the time series can be approximated by
-    - Moving Average $MA(q)$ model
-    - Autoregressive $AR(p)$ model
-    - Autoregressive Moving Average $ARMA(p,q)$ model.
+    - **Moving Average $MA(q)$ model**: the present value is linearly dependent on current and past error terms.
+      - The order of a stationary $MA(q)$ process is determined by the `ACF` plot: the autocorrelation coefficients will be significant up until lag $q$.
+        - If the autocorrelation coefficients in `ACF` _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
+    - **Autoregressive $AR(p)$ model**: the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
+      - The order $p$ of a stationary $AR(p)$ process is determined using the `PACF` plot to determine: the **coefficients will be non-significant** after lag $p$.
+    - **Autoregressive Moving Average $ARMA(p,q)$ model**.
 
 #### Random Walk
 
@@ -21,7 +24,7 @@
   - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
 - If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
 
-#### Moving Average
+#### Moving Average Process
 
 - Defining a moving average process $MA(q)$: expresses the present value as a linear combination of
   - The **mean** of the series ($\mu$)
@@ -42,6 +45,28 @@
         $$y_2 = y_0 + y_1' + y_2' = y_0 + y_1– y_0 + y_2– y_1 = (y_0– y_0) + (y_1– y_1) + y_2 = y_2$$
 
 <p align="center"><img src="./assets/img/first-order-differencing.png" height=300><br>Visualizing a first-order difference</p>
+
+#### Autoregressive Process
+
+- Defining an autoregressive process: denoted as $AR(p)$, is the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
+- Identifying AR process & the order of AR model
+  - In the case where the autocorrelation coefficients in ACF _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
+  - This time we will have to plot the Partial Autocorrelation function (PACF) and see at which lag the coefficients suddenly become non-significant.
+  <p align="center"><img src="./assets/img/autoregressive-identification-framework.png" height=700><br>Steps to identify the order of an autoregressive (AR) process</p>
+- Defining the partial autocorrelation function (PACF):
+  - Suppose we have the following AR(2) process: $y_t = 0.33y_{t–1} + 0.50y_{t–2}$
+  - In order to measure the correlation between $y_t$ and $y_{t-2}$,
+    - Autocorrelation function (`ACF`) will capture both:
+      - **Direct** impact of $y_{t-2}$ on $y_t$:
+        - i.e: $y_{t-2}$ &#8594; $y_t$
+      - **In-direct** impact of $y_{t-2}$ on $y_t$ via $y_{t-1}$:
+        - i.e: $y_{t-2}$ &#8594; $y_{t-1}$ &#8594; $y_t$
+        - This is because the $y_{t-2}$ also influencs on $y_{t-1}$ and $y_{t-1}$ then influences $y_t$
+    - Partial Autocorrelation fuction (`PACF`) measures only the **direct** impact between each lag value, say $y_{t-2}$, and the $y_t$ and remove the influence of correlated lagged values, say $y_{t-1}$, in between (a.k.a. _confounding variables_)
+- Using the PACF plot to determine the order $p$ of a stationary $AR(p)$ process: the **coefficients will be non-significant** after lag $p$.
+- Forecasting a time series using the autoregressive model
+  - _Note 1_: AR model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
+  - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
 
 ## Day 2
 
