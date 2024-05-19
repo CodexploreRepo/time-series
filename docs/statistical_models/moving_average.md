@@ -35,8 +35,14 @@
 
 ### Simulating an MA process
 
-- Simulate an MA(3) process with the mean $\mu=0$ and current error term $\epsilon_t=0$ are zeros
+- Simulate an $MA(3)$ process with the mean $\mu=0$ and current error term $\epsilon_t=0$ are zeros
   - $y_t = 0.9\theta_{t–1} + 0.3\theta_{t–2} + 0.2\theta_{t–3}$
+- We will simulate it using the `ArmaProcess` function from `statsmodels`.
+  - The function expects
+    - An array containing the coefficients of an $MA(q)$ process
+    - An array containing the coefficients for an $AR(p)$ process.
+      - Since we are only interested in simulating an $MA(3)$ process, we will set the coefficients of the $AR(p)$ process to 0.
+    - An coefficient at lag 0, which is the number that multiplies $y_t$ which is 1.
 
 ```Python
 from statsmodels.tsa.arima_process import ArmaProcess
