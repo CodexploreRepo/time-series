@@ -5,7 +5,7 @@
 ### Approach to time-series forecasting problems
 
 - Step 1: Check if the time-series is random walk process where its **first difference** is **stationary** (using ADF, KPSS test) & **no autocorrelation** (i.e.: ACF will show no significant coefficients after lag 0)
-  - If yes, using [naive forecasting methods](#baseline-models-naive-for-time-series)\*\* as we cannot model the random process. Else, move to Step 2.
+  - If yes, using [naive forecasting methods](#baseline-models-naive-for-time-series) as we cannot model the random process. Else, move to Step 2.
   - Note on Stationary: if we can observe a trend over the time,the time-series is not stationary, so we will have to apply a transformation in order to make it stationary.
   - Note on Seasonality: if there is no cyclical pattern, so we can rule out the presence of seasonality.
 - Step 2: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
