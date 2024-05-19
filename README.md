@@ -17,6 +17,7 @@
 - [Introduction](./docs/statistical_models/intro.md)
 - [Moving Average (MA) Model](./docs/statistical_models/moving_average.md)
 - [Autoregressive (AR) Model](./docs/statistical_models/autoregressive.md)
+- [Autoregressive Moving Average (ARMA)](./docs/statistical_models/arma.md)
 - [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
 
 ### ML Models

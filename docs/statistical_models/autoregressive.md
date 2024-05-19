@@ -112,7 +112,7 @@ from statsmodels.graphics.tsaplots import plot_pacf
 plot_pacf(foot_traffic_diff, lags=20);
 ```
 
-<p align="center"><img src="../../assets/img/autoregressive-process-pacf-plot-example.png" width=400><br>PACF plot on the stationary process</p>
+<p align="center"><img src="../../assets/img/autoregressive-process-pacf-plot-example.png" width=400><br>PACF plot on the stationary process of AR(3)</p>
 
 ## Forecasting an autoregressive process
 
