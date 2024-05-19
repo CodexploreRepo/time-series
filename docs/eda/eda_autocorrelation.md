@@ -13,7 +13,7 @@
   - Directly: $S_{t-2}$ &#8594; $S_t$
   - In-directly: $S_{t-2}$ &#8594; $S_{t-1}$ &#8594; $S_t$
   - Hence, the correlation $corr(S_{t-2}, S_t)$ which captures both **direct & in-direct** impact of the price 2 months ago, $S_{t-2}$, on the current price $S_t$, is the `ACF`
-- PACF only focus on the direct impact $S_{t-2}$ &#8594; $S_t$
+- `PACF` only focus on the direct impact $S_{t-2}$ &#8594; $S_t$
 
 ## Autocorrelation Function (ACF)
 
