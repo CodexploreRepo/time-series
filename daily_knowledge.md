@@ -63,12 +63,11 @@
 
 - Defining an autoregressive process: denoted as $AR(p)$, is the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
 - Identifying AR process & the order of AR model
-  <p align="center"><img src="./assets/img/autoregressive-identification-framework.png" height=700><br>Steps to identify the order of an autoregressive (AR) process</p>
 
   - In the case where the autocorrelation coefficients in ACF _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
-  <p align="center"><img src="./assets/img/autoregressive-process-acf-plot-example.png" width=400><br>The plot is slowly decaying which is indicative of an autoregressive process.</p>
-
   - This time we will have to plot the Partial Autocorrelation function (PACF) and see at which lag the coefficients suddenly become non-significant.
+
+<p align="center"><img src="./assets/img/autoregressive-process-acf-plot-example.png" width=400><br>The plot is slowly decaying in ACF plot which is indicative of an autoregressive process.</p>
 
 - Defining the partial autocorrelation function (PACF):
   - Suppose we have the following AR(2) process: $y_t = 0.33y_{t–1} + 0.50y_{t–2}$
@@ -81,9 +80,9 @@
         - This is because the $y_{t-2}$ also influencs on $y_{t-1}$ and $y_{t-1}$ then influences $y_t$
     - Partial Autocorrelation fuction (`PACF`) measures only the **direct** impact between each lag value, say $y_{t-2}$, and the $y_t$ and remove the influence of correlated lagged values, say $y_{t-1}$, in between (a.k.a. _confounding variables_)
 - Using the PACF plot to determine the order $p$ of a stationary $AR(p)$ process: the **coefficients will be non-significant** after lag $p$.
-
   - The coefficients are non-significant after lag 3.
-  <p align="center"><img src="./assets/img/autoregressive-process-pacf-plot-example.png" width=400><br>PACF plot on the stationary process of AR(3)</p>
+
+<p align="center"><img src="./assets/img/autoregressive-process-pacf-plot-example.png" width=400><br>PACF plot on the stationary process of AR(3)</p>
 
 - Forecasting a time series using the autoregressive model
   - _Note 1_: AR model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
