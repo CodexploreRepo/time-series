@@ -140,10 +140,10 @@ plt.show()
   - **Model selection** is done with the Akaike information criterion (AIC).
     - AIC quantifies the information loss of a model, and it is related to the number of parameters in a model and its goodness of fit. _The lower the AIC, the better the model_.
   - **Residual analysis** on the best model selected based on model selection - The **residuals** of a model are simply the difference between the predicted values and the actual values.
-    - The **Q-Q plot** is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
+    - The qualitative analysis with **Q-Q plot** which is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
       - If the plot shows a straight line that lies on y = x, then the residuals are **normally distributed**.
       - Otherwise, it means that the residuals are not normally distributed.
-    - The **Ljung-Box** test allows us to determine whether the residuals are _correlated_ or not.
+    - The quantitative analysis with **Ljung-Box** test which allows us to determine whether the residuals are _correlated_ or not.
       - The null hypothesis states that the data is independently distributed and uncorrelated.
         - If the returned p-values are larger than 0.05, we cannot reject the null hypothesis, meaning that the residuals are uncorrelated, just like white noise.
 - Forecasting a time series using the ARMA(p,q) model identified from the previous **general modeling procedure**

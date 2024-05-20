@@ -15,10 +15,19 @@
 ### Statistical Forecasting Models
 
 - [Introduction](./docs/statistical_models/intro.md)
-- [Moving Average (MA) Model](./docs/statistical_models/moving_average.md)
-- [Autoregressive (AR) Model](./docs/statistical_models/autoregressive.md)
-- [Autoregressive Moving Average (ARMA)](./docs/statistical_models/arma.md)
-- [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
+
+#### Forecasting stationary series
+
+- The below models only can be used for **stationary** time series, which required us to apply transformations, mainly differencing. The forecasts from each model _returned differenced values_, which required us to reverse this transformation in order to bring the values back to the scale of the original data.
+  - [Moving Average $MA(q)$ model](./docs/statistical_models/moving_average.md)
+  - [Autoregressive $AR(p)$ model](./docs/statistical_models/autoregressive.md)
+  - [Autoregressive Moving Average $ARMA(p,q)$ model](./docs/statistical_models/arma.md)
+
+#### Forecasting non-stationary time series
+
+- Adding the **integration order** component, which is denoted by the variable $d$ into the $ARMA(p,q)$ model so we can forecast non-stationary time series & avoid the steps of modeling on stationary (differenced) data and having to inverse transform the forecasts.
+  - [Autoregressive Integrated Moving Average $ARIMA(p,d,q)$ model](./docs/statistical_models/arima.md)
+  - [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
 
 ### ML Models
 

@@ -15,10 +15,10 @@
   - **Model selection** is done with the Akaike information criterion (AIC).
     - AIC quantifies the information loss of a model, and it is related to the number of parameters in a model and its goodness of fit. _The lower the AIC, the better the model_.
   - **Residual analysis** on the best model selected based on model selection - The **residuals** of a model are simply the difference between the predicted values and the actual values.
-    - The **Q-Q plot** is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
+    - The qualitative analysis with **Q-Q plot** which is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
       - If the plot shows a straight line that lies on y = x, then the residuals are **normally distributed**.
       - Otherwise, it means that the residuals are not normally distributed.
-    - The **Ljung-Box** test allows us to determine whether the residuals are _correlated_ or not.
+    - The quantitative analysis with **Ljung-Box** test which allows us to determine whether the residuals are _correlated_ or not.
       - The null hypothesis states that the data is independently distributed and uncorrelated.
         - If the returned p-values are larger than 0.05, we cannot reject the null hypothesis, meaning that the residuals are uncorrelated, just like white noise.
 
@@ -33,12 +33,13 @@
   - On its own previous values $y_{t-p}$ and a constant $C$, just like in an _autoregressive_ process
   - On the mean of the series $\mu$, the current error term $\epsilon_t$, and past error terms $\epsilon_{t-q}$, like in a _moving average_ process.
 
-$$y_t = C + \epsilon_t + \varphi_1y_{t–1} + \varphi_2y_{t–2} +⋅⋅⋅+ \varphi_p y_{t–p} + \mu + \epsilon_t + \theta_1\epsilon_{t-1} + ... + \theta_q\epsilon_{t-q}$$
+$$y_t = C + \varphi_1y_{t–1} + \varphi_2y_{t–2} +⋅⋅⋅+ \varphi_p y_{t–p} + \mu + \epsilon_t + \theta_1\epsilon_{t-1} + ... + \theta_q\epsilon_{t-q}$$
 
 ### Simulating an ARMA process
 
-- Simulate an ARMA(1,1) process with the below equation. - This is equivalent to combining an MA(1) process with an AR(1) process.
-  $$y_t = 0.33y_{t-1} + 0.9\epsilon_{t-1} + \epsilon_t$$
+- Simulate an ARMA(1,1) process with the below equation.
+  - This is equivalent to combining an MA(1) process with an AR(1) process.
+    $$y_t = 0.33y_{t-1} + 0.9\epsilon_{t-1} + \epsilon_t$$
 - Use the `ArmaProcess` function from the `statsmodels` library to simulate our ARMA(1,1) process.
   - $AR(1)$ process will have a coefficient of 0.33.
     - However, the function expects to have the coefficient of the autoregressive process with its opposite sign, so it is –0.33.
