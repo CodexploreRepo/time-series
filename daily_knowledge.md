@@ -3,6 +3,7 @@
 ## Day 4
 
 - White noise: uncorrelated (Ljung-Box test) & normally distributed (use Q-Q plot to compare white noise with the theoretical _normal_ distribution)
+- **Residuals** of a model are simply the difference between the predicted values and the actual values.
 
 ## Day 3
 
