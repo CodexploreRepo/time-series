@@ -4,7 +4,9 @@
 - Identifying AR process & the order of AR model
   - In the case where the autocorrelation coefficients in ACF _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
   - This time we will have to plot the Partial Autocorrelation function (PACF) and see at which lag the coefficients suddenly become non-significant.
-  <p align="center"><img src="../../assets/img/autoregressive-identification-framework.png" height=700><br>Steps to identify the order of an autoregressive (AR) process</p>
+
+<p align="center"><img src="../../assets/img/autoregressive-identification-framework.png" height=700><br>Steps to identify the order of an autoregressive (AR) process</p>
+
 - Defining the partial autocorrelation function (PACF):
   - Suppose we have the following AR(2) process: $y_t = 0.33y_{t–1} + 0.50y_{t–2}$
   - In order to measure the correlation between $y_t$ and $y_{t-2}$,
