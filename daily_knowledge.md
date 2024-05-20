@@ -1,5 +1,9 @@
 # Daily Knowledge
 
+## Day 4
+
+- White noise: uncorrelated (Ljung-Box test) & normally distributed (use Q-Q plot to compare white noise with the theoretical _normal_ distribution)
+
 ## Day 3
 
 ### Approach to time-series forecasting problems
