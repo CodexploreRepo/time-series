@@ -3,17 +3,25 @@
 - The autoregressive moving average model, denoted as $ARMA(p,q)$, is the combination of the autoregressive model $AR(p)$ and the moving average model $MA(q)$.
 - An ARMA(p,q) process will display a **decaying pattern** or a **sinusoidal** pattern on _both the ACF and PACF_ plots.
   - Therefore, they cannot be used to estimate the orders $p$ and $q$.
+
+| ACF plot exhibits a **decaying pattern** | PACF plot exhibits a **sinusoidal** pattern |
+| :--------------------------------------: | :-----------------------------------------: |
+| ![](../../assets/img/arma-acf-plot.png)  |  ![](../../assets/img/arma-pacf-plot.png)   |
+
+<p align="center">General modeling procedure for an ARMA(p, q) process<br><img src="../../assets/img/general-modeling-procedure-for-arma-process.png" height=700></p>
+
 - The **general modeling procedure** does not rely on the ACF and PACF plots. Instead, we fit many ARMA(p,q) models and perform model selection and residual analysis.
+
   - **Model selection** is done with the Akaike information criterion (AIC).
     - AIC quantifies the information loss of a model, and it is related to the number of parameters in a model and its goodness of fit. _The lower the AIC, the better the model_.
-  - **Residual analysis** on the best model selected based on model selection
-    - The **residuals** of a model are simply the difference between the predicted values and the actual values.
+  - **Residual analysis** on the best model selected based on model selection - The **residuals** of a model are simply the difference between the predicted values and the actual values.
     - The **Q-Q plot** is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
       - If the plot shows a straight line that lies on y = x, then the residuals are **normally distributed**.
       - Otherwise, it means that the residuals are not normally distributed.
     - The **Ljung-Box** test allows us to determine whether the residuals are _correlated_ or not.
       - The null hypothesis states that the data is independently distributed and uncorrelated.
         - If the returned p-values are larger than 0.05, we cannot reject the null hypothesis, meaning that the residuals are uncorrelated, just like white noise.
+
 - Forecasting a time series using the ARMA(p,q) model identified from the previous **general modeling procedure**
   - _Note 1_: ARMA model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
   - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
@@ -107,7 +115,7 @@ from statsmodels.graphics.tsaplots import plot_pacf
 plot_pacf(bandwidth_diff);
 ```
 
-<p align="center"><img src="../../assets/img/arma-pacf-plot.png" width=400>PACF plot of stationary ARMA process</p>
+<p align="center"><img src="../../assets/img/arma-pacf-plot.png" width=400><br>PACF plot of stationary ARMA process</p>
 
 - From the PACF plot, there is a clear sinusoidal pattern, meaning that we cannot infer a value for the order $p$.
 - If your process is stationary and both the ACF and PACF plots show a decaying or sinusoidal pattern, then it is a stationary ARMA(p,q) process.

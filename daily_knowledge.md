@@ -5,6 +5,38 @@
 - White noise: uncorrelated (Ljung-Box test) & normally distributed (use Q-Q plot to compare white noise with the theoretical _normal_ distribution)
 - **Residuals** of a model are simply the difference between the predicted values and the actual values.
 
+### Quantile Quantile (Q-Q) plots
+
+- The quantile-quantile (Q-Q) plot is a graphical method for determining if a dataset follows a certain probability distribution or whether two samples of data came from the same population or not.
+  - Q-Q plots are particularly useful for assessing whether a dataset is normally distributed or if it follows some other known distribution.
+
+```Python
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+
+# Generate example of normal distribution data
+np.random.seed(0)
+data = np.random.normal(loc=0, scale=1, size=1000)
+
+# Create Q-Q plot
+stats.probplot(data, dist="norm", plot=plt)
+plt.title('Normal Q-Q plot')
+plt.xlabel('Theoretical quantiles')
+plt.ylabel('Ordered Values')
+plt.grid(True)
+plt.show()
+```
+
+| Q-Q plot of a dataset that is very close to a normal distribution |    Q-Q plot of a dataset that is not close to a normal distribution.     |
+| :---------------------------------------------------------------: | :----------------------------------------------------------------------: |
+|   ![](./assets/img/qq-plot-randomly-distributed-residuals.png)    | ![](./assets/img/qq-plot-residuals-not-close-to-normal-distribution.png) |
+
+- The Q-Q plot is constructed by plotting the quantiles of our residuals on the y-axis against the quantiles of a theoretical distribution, in this case the normal distribution, on the x-axis.
+  - If both distributions are similar, meaning that the distribution of the residuals is close to a normal distribution, the Q-Q plot will display a straight line that approximately lies on $y = x$.
+  - If both distributions are not similar, meaning that the distribution of the residuals is not close to a normal distribution, the Q-Q plot will generate the curve that departs from $y = x$.
+
 ## Day 3
 
 ### Approach to time-series forecasting problems
@@ -20,7 +52,10 @@
         - If the autocorrelation coefficients in `ACF` _slowly decay_ or exhibit a _sinusoidal_ pattern, then you are possibly in the presence of an **autoregressive** process.
     - **Autoregressive $AR(p)$ model**: the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
       - The order $p$ of a stationary $AR(p)$ process is determined using the `PACF` plot to determine: the **coefficients will be non-significant** after lag $p$.
-    - **Autoregressive Moving Average $ARMA(p,q)$ model**.
+    - **Autoregressive Moving Average $ARMA(p,q)$ model** is the combination of the autoregressive model $AR(p)$ and the moving average model $MA(q)$.
+      - An ARMA(p,q) process will display a **decaying pattern** or a **sinusoidal** pattern on _both the ACF and PACF_ plots.
+      - Therefore, they cannot be used to estimate the orders $p$ and $q$.
+      - As using the ACF and PACF plots to determine the orders $q$ and $p$, respectively, becomes difficult, **general modeling procedure** is required to determine the optimal combination of $p$ and $q$ for our series.
 
 #### Random Walk
 
@@ -36,7 +71,7 @@
 
 - If the process is not a random walk, so it can be approximated by the moving average (MA) model, an autoregressive (AR) model, or the combination of both processes, leading to an autoregressive moving average (ARMA) model.
 
-#### Moving Average Process
+#### Moving Average (MA) Process
 
 - Defining a moving average process $MA(q)$: expresses the present value as a linear combination of
   - The **mean** of the series ($\mu$)
@@ -60,7 +95,7 @@
 
 <p align="center"><img src="./assets/img/first-order-differencing.png" height=300><br>Visualizing a first-order difference</p>
 
-#### Autoregressive Process
+#### Autoregressive (AR) Process
 
 - Defining an autoregressive process: denoted as $AR(p)$, is the process where the present value $y_t$ is linearly dependent on its past values from $y_{t–1}$ to $y_{t–p}$.
 - Identifying AR process & the order of AR model
@@ -87,6 +122,32 @@
 
 - Forecasting a time series using the autoregressive model
   - _Note 1_: AR model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
+  - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
+
+#### Autoregressive Moving Average (ARMA) Process
+
+- The autoregressive moving average model, denoted as $ARMA(p,q)$, is the combination of the autoregressive model $AR(p)$ and the moving average model $MA(q)$.
+- An ARMA(p,q) process will display a **decaying pattern** or a **sinusoidal** pattern on _both the ACF and PACF_ plots.
+  - Therefore, they cannot be used to estimate the orders $p$ and $q$.
+
+| ACF plot exhibits a **decaying pattern** | PACF plot exhibits a **sinusoidal** pattern |
+| :--------------------------------------: | :-----------------------------------------: |
+|   ![](./assets/img/arma-acf-plot.png)    |    ![](./assets/img/arma-pacf-plot.png)     |
+
+<p align="center">General modeling procedure for an ARMA(p, q) process<br><img src="./assets/img/general-modeling-procedure-for-arma-process.png" height=700></p>
+
+- The **general modeling procedure** does not rely on the ACF and PACF plots. Instead, we fit many ARMA(p,q) models and perform model selection and residual analysis.
+  - **Model selection** is done with the Akaike information criterion (AIC).
+    - AIC quantifies the information loss of a model, and it is related to the number of parameters in a model and its goodness of fit. _The lower the AIC, the better the model_.
+  - **Residual analysis** on the best model selected based on model selection - The **residuals** of a model are simply the difference between the predicted values and the actual values.
+    - The **Q-Q plot** is a graphical tool for comparing two distributions. We use it to compare the distribution of the _residuals_ against a theoretical _normal_ distribution.
+      - If the plot shows a straight line that lies on y = x, then the residuals are **normally distributed**.
+      - Otherwise, it means that the residuals are not normally distributed.
+    - The **Ljung-Box** test allows us to determine whether the residuals are _correlated_ or not.
+      - The null hypothesis states that the data is independently distributed and uncorrelated.
+        - If the returned p-values are larger than 0.05, we cannot reject the null hypothesis, meaning that the residuals are uncorrelated, just like white noise.
+- Forecasting a time series using the ARMA(p,q) model identified from the previous **general modeling procedure**
+  - _Note 1_: ARMA model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
   - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
 
 ## Day 2
