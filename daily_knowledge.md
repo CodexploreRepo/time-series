@@ -41,11 +41,14 @@ plt.show()
 
 ### Approach to time-series forecasting problems
 
-- Step 1: Check if the time-series is random walk process where its **first difference** is **stationary** (using ADF, KPSS test) & **no autocorrelation** (i.e.: ACF will show no significant coefficients after lag 0)
+#### Forecasting stationary series
+
+- **Note**: The below models only can be used for **stationary** time series, or those non-stationary series which require only **one round** of transformations, mainly differencing to make it stationary. The forecasts from each model _returned differenced values_, which required us to reverse this transformation in order to bring the values back to the scale of the original data.
+- **Step 1**: Check if the time-series is random walk process where its **first difference** is **stationary** (using ADF, KPSS test) & **no autocorrelation** (i.e.: ACF will show no significant coefficients after lag 0)
   - If yes, using [naive forecasting methods](#baseline-models-naive-for-time-series) as we cannot model the random process. Else, move to Step 2.
   - Note on Stationary: if we can observe a trend over the time,the time-series is not stationary, so we will have to apply a transformation in order to make it stationary.
   - Note on Seasonality: if there is no cyclical pattern, so we can rule out the presence of seasonality.
-- Step 2: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
+- **Step 2**: If the time-series achieves the **stationary** after transformation (differencing), and its differenced series exhibits **autocorrelation**.
   - In this case, the time series can be approximated by
     - **Moving Average $MA(q)$ model**: the present value is linearly dependent on current and past error terms.
       - The order of a stationary $MA(q)$ process is determined by the `ACF` plot: the autocorrelation coefficients will be significant up until lag $q$.
@@ -57,12 +60,20 @@ plt.show()
       - Therefore, they cannot be used to estimate the orders $p$ and $q$.
       - As using the ACF and PACF plots to determine the orders $q$ and $p$, respectively, becomes difficult, **general modeling procedure** is required to determine the optimal combination of $p$ and $q$ for our series.
 
+#### Forecasting non-stationary series
+
+- We can forecast **non-stationary** time series & avoid the steps of modeling on stationary (differenced) data and having to inverse transform the forecasts by adding the **integration order** component ($d >= 2$), which is denoted by the variable $d$ into the $ARMA(p,q)$ model
+- [Autoregressive Integrated Moving Average $ARIMA(p,d,q)$ model](./docs/statistical_models/arima.md)
+  - Step 1: EDA (stationary) to identify $d$ how many times the differencing requires to be stationary, usually $d >=2$, so we can skip ACF, PACF plots as ARIMA model does not rely on those plots to deterime `p` and `q`.
+  - Step 2: Use **general modeling procedure** to determine the optimal combination of $p$ and $q$ with the fixed $d$ identified in Step 1.
+
 #### Random Walk
 
 - There are instances where the simplest (naive forecasting) methods will yield the best forecasts in compared with sophisticated methods such as statistical or deep learning models. This is the case when we face a **random walk** process.
 - A `random walk` is a sequence where the **first difference** is **not autocorrelated** (i.e.: ACF will show no significant coefficients after lag 0) and is a **stationary** process, meaning that its mean, variance, and autocorrelation are constant over time.
 
   - Because a random process takes random steps into the future, we **cannot use statistical or deep learning** techniques to fit such a process: there is **nothing to learn from randomness** and it cannot be predicted. Instead, we must **rely on [naive forecasting methods](#baseline-models-naive-for-time-series)**.
+
   <p align="center"><img src="./assets/img/random-walk-acf.png" width=400><br>There are no significant coefficients after lag 0 in the ACF plot</p>
 
   - The shaded area represents a confidence interval.
