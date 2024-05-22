@@ -45,6 +45,10 @@ df.head()
 
 <p align="center"><img src="../../assets/img/seasonal-time-series-example.png" width=800></p>
 
+- From the plot, there is a repeating pattern every year, with
+  - A high number of passengers being recorded during June, July, and August of each year
+  - Fewer passengers in November, December, and January of each year.
+
 ```Python
 # The period is equal to the frequency m. Since we have monthly data, the period is 12.
 decompose_ts(df['Passengers'], period=12)

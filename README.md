@@ -8,6 +8,7 @@
 
 - [Stationary](./docs/eda/eda_stationary.md)
 - [Autocorrelation](./docs/eda/eda_autocorrelation.md)
+- [Time Series Decomposition](./docs/eda/eda_time-series-decomposition.md)
 
 ## Modelling
 
@@ -30,7 +31,7 @@
 
 - We can forecast **non-stationary** time series & avoid the steps of modeling on stationary (differenced) data and having to inverse transform the forecasts by adding the **integration order** component ($d >= 2$), which is denoted by the variable $d$ into the $ARMA(p,q)$ model
   - [Autoregressive Integrated Moving Average ARIMA(p,d,q) model](./docs/statistical_models/arima.md)
-  - [Seasonal Autoregressive Integrated Moving Average (SARIMA) model](./docs/statistical_models/sarima.md)
+  - [Seasonal Autoregressive Integrated Moving Average SARIMA(p,d,q)(P,D,Q)m model](./docs/statistical_models/sarima.md)
   - [ARIMA & S-ARIMA-X](./docs/statistical_models/arima_sarimax.md)
 
 ### ML Models

@@ -63,9 +63,12 @@ plt.show()
 #### Forecasting non-stationary series
 
 - We can forecast **non-stationary** time series & avoid the steps of modeling on stationary (differenced) data and having to inverse transform the forecasts by adding the **integration order** component ($d >= 2$), which is denoted by the variable $d$ into the $ARMA(p,q)$ model
-- [Autoregressive Integrated Moving Average $ARIMA(p,d,q)$ model](./docs/statistical_models/arima.md)
+- **Autoregressive Integrated Moving Average $ARIMA(p,d,q)$ model**
   - Step 1: EDA (stationary) to identify $d$ how many times the differencing requires to be stationary, usually $d >=2$, so we can skip ACF, PACF plots as ARIMA model does not rely on those plots to deterime `p` and `q`.
+    - Note: perform _time series decomposition_ to identify seasonal patterns
+      - If there is no seasonal patterns in the series, proceed to Step 2. Else, please refer to SARIMA models
   - Step 2: Use **general modeling procedure** to determine the optimal combination of $p$ and $q$ with the fixed $d$ identified in Step 1.
+- **Seasonal Autoregressive Integrated Moving Average $SARIMA(p,d,q)(P,D,Q)_m$ model** which allows us to model **non-stationary** **seasonal** time series.
 
 #### Random Walk
 
@@ -160,6 +163,34 @@ plt.show()
 - Forecasting a time series using the ARMA(p,q) model identified from the previous **general modeling procedure**
   - _Note 1_: ARMA model assumes stationarity, so if the process is not stationary, the model has to be trained and testes on its stationary **differenced series**
   - _Note 2_: Once the champion model is identify on the stationary series, so we need to inverse-transform our predictions to bring them back to the original scale of the untransformed dataset by taking the cumulative sum of our predictions and add it to the last value of our training set in the original series.
+
+#### Seasonal Autoregressive Integrated Moving Average (SARIMA) Process
+
+- SARIMA(p,d,q)(P,D,Q)m model, which allows us to model **non-stationary** **seasonal** time series.
+- The **seasonal** autoregressive integrated moving average (SARIMA) model, or $SARIMA(p,d,q)(P,D,Q)_m$ expands on $ARIMA(p,d,q)$ model by four new parameters in the model: $P$, $D$, $Q$, and $m$ to take into account **periodic** patterns when forecasting a time series
+  - $m$ stands for the frequency which is the number of observations per cycle
+    - If the data is every year (1 observation per year), then m=1
+    - If data is collected every quarter (4 observations per year), then m = 4.
+    - If the data is collected every month, then m = 12.
+    - If the data is collected every week, then m = 52.
+    - Note: If the data is collected on a **daily** or **sub-daily** basis, there are multiple ways of interpreting the frequency. (Please refer the "Appropriate frequency m for daily and sub-daily data" for more details)
+      - It could be the frequency m = 7 as there would be seven observations in a full cycle of 1 week.
+      - It could also have a yearly seasonality, meaning that m = 365.
+  - $P$ is the order of the **seasonal AR(P)** process
+  - $D$ is the **seasonal order** of integration: a seasonal difference makes the series stationary
+  - $Q$ is the order of the **seasonal MA(Q)** process
+- **Time series decomposition** can be used to identify seasonal patterns in a time series.
+- **Forecasting with ARIMA**:
+  - **Step 0**: deterime $m$ and perform _time series decomposition_ to identify seasonal patterns
+  - **Step 1**: Check for stationarity and apply transformation in order to set the parameter $d$ & $D$ (seasonal difference)
+  - **Step 2**: train-test split & prepare the baseline model
+  - **Step 3**: Model selection with AIC to determine $p$, $q$, $P$ and $Q$
+    - Note: The implementation of SARIMA in statsmodels simply uses $s$ instead of $m$ — they both denote the frequency.
+  - **Step 4**: Forecasting
+    - We apply the rolling forecast to get the prediction which means the model will be trained up to T before making the T+1 prediction.
+  - **Step 5**: Model Evaluation
+- Appendix of SARIMA:
+<p align="center"><img src="./assets/img/sarima-determine-m-for-daily-sub-daily-data.png" width=700><br>Appropriate frequency m for daily and sub-daily data</p>
 
 ## Day 2
 
