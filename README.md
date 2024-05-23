@@ -10,6 +10,8 @@
 - [Autocorrelation](./docs/eda/eda_autocorrelation.md)
 - [Time Series Decomposition](./docs/eda/eda_time-series-decomposition.md)
 
+## Feature Engineering
+
 ## Modelling
 
 - [Baseline Model](./docs/baseline_model.md)
