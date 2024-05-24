@@ -2,6 +2,18 @@
 
 ## Day 5
 
+### Feature Engineering
+
+#### Time Feature: Sine & Cosine
+
+- If we express each timestamp of the day into number of seconds, the number of seconds simply increases linearly with time and we will lose the cyclical behavior of time.
+- Solution: to apply sine & cosine transformations to recover the cyclical behavior of time.
+- Why we need both sine & consine transformations ?
+  - With a single sine transformation, 12 p.m. is equivalent to 12 a.m., and 5 p.m. is equivalent to 5 a.m. This is undesired, as we want to distinguish between morning and afternoon.
+  - Cosine is out of phase with the sine function. This allows us to distinguish between 5 a.m. and 5 p.m.
+
+### Confidence Intervals of the predictions
+
 - SARIMAX provides the confidence intervals of predictions in `get_prediction` mehtod.
 
 ```Python

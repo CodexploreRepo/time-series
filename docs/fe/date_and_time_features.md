@@ -45,3 +45,29 @@ us_holidays = holidays.US()
 
 df['isholiday'] = df['datetime'].apply(lambda x : x in us_holidays).astype(int)
 ```
+
+## Time Features
+
+```Python
+df['hour'] =  df['datetime'].dt.hour
+```
+
+- Express the timestamp in the day as a number of seconds
+  - This simply expresses each date in seconds, the number of seconds simply increases linearly with time.
+
+```Python
+timestamp_s = pd.to_datetime(df['datetime']).map(datetime.datetime.timestamp) # convert to seconds
+```
+
+- **Solution**: to apply sine & cosine transformations to recover the cyclical behavior of time.
+- Why we need both sine & consine transformations ?
+  - With a single sine transformation, 12 p.m. is equivalent to 12 a.m., and 5 p.m. is equivalent to 5 a.m. This is undesired, as we want to distinguish between morning and afternoon.
+  - Cosine is out of phase with the sine function. This allows us to distinguish between 5 a.m. and 5 p.m.
+
+```Python
+day = 24 * 60 * 60  # normalise the number of seconds by dividing the total number of seconds per day
+# sine transformation
+df['day_sin'] = (np.sin(timestamp_s * (2*np.pi/day))).values
+# cosine transformation
+df['day_cos'] = (np.cos(timestamp_s * (2*np.pi/day))).values
+```
