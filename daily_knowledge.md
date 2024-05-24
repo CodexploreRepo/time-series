@@ -1,5 +1,43 @@
 # Daily Knowledge
 
+## Day 5
+
+- SARIMAX provides the confidence intervals of predictions in `get_prediction` mehtod.
+
+```Python
+# Fit the SARIMAX model
+model = SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+fitted_model = model.fit()
+
+# Forecast the next 10 steps
+forecast = fitted_model.get_prediction(steps=10, exog=exog_test)
+forecast_values = forecast.predicted_mean # prediction value
+forecast_ci = forecast.conf_int()         # confidence interval (lower, upper)
+
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=df[-15:].Month, y=df[-15:]['Passengers'], name='actual', line = dict(color='royalblue')))
+
+fig.add_trace(go.Scatter(x=test.Month, y=test[pred_type], name='pred', line = dict(dash='dash')))
+fig.add_trace(go.Scatter(x=test.Month, y=forecast_ci["lower"],
+    fill=None,
+    mode='lines',
+    showlegend = False,
+    line_color='rgba(0,0,0,0)',
+    ))
+fig.add_trace(go.Scatter(x=test.Month, y=forecast_ci["lower"],
+    fill='tonexty', # fill area between trace0 and trace1
+    name="Confidence Interval - SARIMA_pred_rolling",
+    mode='lines', line_color='rgba(0,0,0,0)', fillcolor = 'rgba(255, 0, 0, 0.2)'))
+
+fig.update_layout(
+    yaxis_title='Month',
+    xaxis_title='Number of air passenggers',
+    title='Prediction on Test Set'
+)
+fig.show()
+```
+
 ## Day 4
 
 - White noise: uncorrelated (Ljung-Box test) & normally distributed (use Q-Q plot to compare white noise with the theoretical _normal_ distribution)
