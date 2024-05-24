@@ -1,5 +1,7 @@
 # Time Series
 
+## Basics
+
 - [Time Series](./docs/introduction.md)
 - [Time Series Operations](./docs/time_series_operations.md)
 - [Time Series Forecasting](./docs/time_series_forecasting.md)
@@ -11,6 +13,12 @@
 - [Time Series Decomposition](./docs/eda/eda_time-series-decomposition.md)
 
 ## Feature Engineering
+
+- [Basics](./docs/fe/basics.md):
+  - Lag
+  - Rolling, Expanding: `mean`, `std`, `min`, `max`
+  - Rate of Change
+- [Date & Time Features](./docs/fe/date_and_time_features.md)
 
 ## Modelling
 

@@ -298,7 +298,7 @@ plt.show()
 
 ### Feature Engineering
 
-#### Time Series Features
+#### Date Features
 
 - Time series features to see how the trends are impacted by day of week, hour, time of year + holiday factor.
   - Note: for Weekday factor we can assign different weight for different day in a week
