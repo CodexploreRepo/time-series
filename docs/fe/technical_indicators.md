@@ -23,7 +23,7 @@ df['SMA'] = calculate_sma(df['Price'], window=window_size)
   - This helps EMA more quickly to recent price changes, making it useful for **short-term** trend analysis.
   - When the price crosses above the EMA, it may indicate a bullish trend.
   - When the price crosses below the EMA, it may indicate a bearish trend.
-  - Forumla: $\text{EMA}_t = (1 - \alpha)\text{EMA}_{t-1} + \alpha*X_t$
+  - $\text{EMA}_t = (1 - \alpha)*\text{EMA}_{t-1} + \alpha*X_t$
 
 - Where:
   - $\text{EMA}_t$ is the Exponential Moving Average at time t
