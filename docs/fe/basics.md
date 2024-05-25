@@ -15,6 +15,7 @@ time_series.dropna(inplace=True)
 ## Rolling Window Features
 
 - Rolling window features are statistics (`mean`, `standard deviation`, `minimum`, and `maximum`) computed over a sliding `window` of the past values.
+  - **Rolling Mean** is also equivalent to Simple Moving Average (`SMA`) in the technical indicators
   - `window` size depends on the data
     - If the data is collected daily, window size can be 7, 14, 30 days to capture the effects in a week, half a month, or a full month
     - If the data is collected hourly, window size can be 6, 12, 24 hours.

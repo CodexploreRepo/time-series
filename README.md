@@ -19,6 +19,12 @@
   - Rolling, Expanding: `mean`, `std`, `min`, `max`
   - Rate of Change
 - [Date & Time Features](./docs/fe/date_and_time_features.md)
+- [Technical Indicators](./docs/fe/technical_indicators.md)
+  - **Simple Moving Average (SMA)** - (a.k.a _rolling mean_): overall trend direction
+  - **Exponential Moving Average (EMA)**: short-term trend as EMA gives more weightage to recent data points.
+  - **Moving Average Convergence Divergence (MACD)**: to identify shifts in market momentum and potential breakout points
+  - **Relative Strength Index (RSI)**: measures the speed and change of price movements
+  - **Bollinger Bands**: measure the volatility of a market and identify potential overbought or oversold conditions.
 
 ## Modelling
 
