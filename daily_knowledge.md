@@ -119,6 +119,8 @@ plt.show()
       - If there is no seasonal patterns in the series, proceed to Step 2. Else, please refer to SARIMA models
   - Step 2: Use **general modeling procedure** to determine the optimal combination of $p$ and $q$ with the fixed $d$ identified in Step 1.
 - **Seasonal Autoregressive Integrated Moving Average $SARIMA(p,d,q)(P,D,Q)_m$ model** which allows us to model **non-stationary** **seasonal** time series.
+- :star: The $\text{SARIMAX}$ model further extends the $\text{SARIMA}(p,d,q)(P,D,Q)_m$ model by adding the effect of exogenous variables $X$.
+  - The SARIMAX model is the **most general model** for forecasting time series.
 
 #### Random Walk
 
@@ -241,6 +243,14 @@ plt.show()
   - **Step 5**: Model Evaluation
 - Appendix of SARIMA:
 <p align="center"><img src="./assets/img/sarima-determine-m-for-daily-sub-daily-data.png" width=700><br>Appropriate frequency m for daily and sub-daily data</p>
+
+#### SARIMA with Exogenous Variables (X)
+
+- The SARIMAX model allows you to include external variables, also termed exogenous variables, to forecast your target.
+- Transformations (differencing) are applied only on the target variable, not on the exogenous variables.
+- Problem with Exogenous variables: SARIMAX is not recommended to forecast multiple timesteps into the future as the exogenous variables might not be available multiple steps in the future, so they must also be forecasted.
+  - This can magnify the errors on the final forecast.
+  - To avoid that, you must predict only the next timestep using the rolling forecast function.
 
 ## Day 2
 
