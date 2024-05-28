@@ -9,6 +9,7 @@
     - If the data is collected every week, then m = 52.
     - Note: If the data is collected on a **daily** or **sub-daily** basis, there are multiple ways of interpreting the frequency. (Please refer the "Appropriate frequency m for daily and sub-daily data" for more details)
       - It could be the frequency m = 7 as there would be seven observations in a full cycle of 1 week.
+      - It could be the frequency m = 5 if the data is only collected on weekend day.
       - It could also have a yearly seasonality, meaning that m = 365.
   - $P$ is the order of the **seasonal AR(P)** process
   - $D$ is the **seasonal order** of integration: a seasonal difference makes the series stationary
@@ -79,8 +80,6 @@ def decompose_ts(df, period):
 
     ax4.plot(decomposition.resid)
     ax4.set_ylabel('Residuals')
-
-    plt.xticks(np.arange(0, 145, 12), np.arange(1949, 1962, 1))
 
     fig.autofmt_xdate()
     plt.tight_layout()

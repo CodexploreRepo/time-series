@@ -122,8 +122,6 @@ def decompose_ts(df, period=12):
     ax4.plot(decomposition.resid)
     ax4.set_ylabel('Residuals')
 
-    plt.xticks(np.arange(0, 145, 12), np.arange(1949, 1962, 1))
-
     fig.autofmt_xdate()
     plt.tight_layout()
 # The period is equal to the frequency m. Since we have quarterly data, the period is 4.
