@@ -1,5 +1,65 @@
 # Daily Knowledge
 
+## Day 6
+
+### Rolling Forecast Function
+
+- A [rolling forecast](https://www.kaggle.com/code/nholloway/seasonality-and-sarimax) is where we forecast one step ahead and then refit our model on the new data, adding data from the test set.
+  - It's expensive because the model is refit every timestep but it allows us to forecast where a bad step will add to the overal error without effecting future forecasts.
+  - This means that early deviations from the time series because of the trend won't hurt our ability to forecast future steps.
+
+```Python
+def rolling_forecast(train, test, order, season):
+    history = [x for x in train]
+    model = SARIMAX(history, order= order, seasonal_order= season)
+    model_fit = model.fit(disp=False)
+    predictions = []
+    results = {}
+    yhat = model_fit.forecast()[0]
+
+    predictions.append(yhat)
+    history.append(test[0])
+    for i in range(1, len(test)):
+        model = SARIMAX(history, order= order, seasonal_order= season)
+        model_fit = model.fit(disp=False)
+        yhat = model_fit.forecast()[0]
+        predictions.append(yhat)
+        obs = test[i]
+        history.append(obs)
+    mse = mean_squared_error(test, predictions)
+    mae = mean_absolute_error(test, predictions)
+    rmse = math.sqrt(mse)
+    predictions = pd.Series(predictions, index=test.index)
+    results['predictions'] = predictions
+    results['mse'] = mse
+    results['rmse'] = rmse
+    results['mae'] = mae
+    return results
+
+rolling_fcast = rolling_forecast(train, test, (1, 1, 1), (1, 0, 0, 12))
+```
+
+### Large-scale Forecasting with Deep Learning
+
+#### Why & When using Deep Learning for forecasting ?
+
+- Why: Statistical models have their limitations, especially when a dataset is **large** and has many features and **non-linear** relationships.
+- When:
+  - A dataset is considered to be large when we have **more than 10,000 data points**.
+  - If your data has **multiple seasonal** periods, the SARIMAX model cannot be used.
+    - For example, suppose you must forecast the hourly temperature.
+      - There is a daily seasonality, as temperature tends to be lower at night and higher during the day
+      - There is also a yearly seasonality, due to temperatures being lower in winter and higher during summer.
+
+#### Types of Deep Learning Models
+
+- Main types of deep learning models:
+  - **Single-step** model: represents the forecast of one variable one step into the future
+  - **Multi-step** model: forecasts many timesteps into the future
+    - For example: given hourly data, we may want to forecast the next 24 hours.
+  - **Multi-output** model: generates predictions for more than one target.
+    - For example: the model to forecast the temperature and wind speed
+
 ## Day 5
 
 ### Feature Engineering
