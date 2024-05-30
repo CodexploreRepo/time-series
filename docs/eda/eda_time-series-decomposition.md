@@ -23,15 +23,16 @@ print(f"Inferred frequency: {freq}")
   - Analyze the periodogram: Identify the significant peaks which correspond to the dominant seasonal cycles.
 
 ```Python
-from statsmodels.tsa.stattools import periodogram
+from scipy.signal import periodogram
 
-# Calculate the periodogram
-frequencies, spectrum = periodogram(train_df)
-# Identify the dominant frequency
-dominant_frequency = frequencies[np.argmax(spectrum)]
-seasonal_period = 1 / dominant_frequency
-print(f"Dominant frequency: {dominant_frequency}")
-print(f"Seasonal period: {seasonal_period} days")
+# Calculate the periodogram: "ds" date col will be set as index, and "y" is the value column
+frequencies, spectrum = periodogram(df.set_index('ds')['y'])
+# Identify the dominant frequencies (top 3)
+top_k = 10
+dominant_frequencies = frequencies[spectrum.argsort()[-top_k:][::-1]]
+seasonal_period = 1 / dominant_frequencies
+# print(f"Dominant frequency: {dominant_frequencies}")
+print(f"Potential Seasonal's periods (m): {list(seasonal_period)} ")
 ```
 
 ## Decomposing The Series

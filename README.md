@@ -8,9 +8,9 @@
 
 ## EDA
 
+- [Time Series Decomposition](./docs/eda/eda_time-series-decomposition.md)
 - [Stationary](./docs/eda/eda_stationary.md)
 - [Autocorrelation](./docs/eda/eda_autocorrelation.md)
-- [Time Series Decomposition](./docs/eda/eda_time-series-decomposition.md)
 
 ## Feature Engineering
 
