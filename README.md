@@ -80,12 +80,6 @@ conda install -c apple tensorflow-deps
 python -m pip install tensorflow-macos
 ```
 
-- Install Apple's `tensorflow-metal` to leverage Apple Metal (Apple's GPU framework) for M1, M1 Pro, M1 Max GPU acceleration.
-
-```shell
-python -m pip install tensorflow-metal
-```
-
 ## Others
 
 - [Glossary](./docs/glossary.md)
