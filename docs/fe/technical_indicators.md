@@ -90,8 +90,7 @@ fig.show()
 
 ## Relative Strength Index (RSI)
 
-- Relative Strength Index (RSI) measures the speed and change of price movements.
-- The RSI is typically used to identify **overbought** or **oversold** conditions in an asset's price.
+- The RSI is typically used to identify **overbought** or **oversold** conditions in an asset's price by measuring the speed and change of price movements.
 - Steps to calculate RSI:
   - Step 1: calculate Price Changes
     - Compute the `price changes` over a specified period (usually period=14) bycomparing each day's closing price to the previous day's closing price.

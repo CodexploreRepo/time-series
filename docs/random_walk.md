@@ -106,6 +106,8 @@ from statsmodels.graphics.tsaplots import plot_acf
 plot_acf(diff_random_walk, lags=20);
 ```
 
+<p align="center"><img src="./../assets/img/random-walk-acf.png" width=400><br>There are no significant coefficients after lag 0 in the ACF plot</p>
+
 - The shaded area represents a confidence interval.
   - If a point is within the shaded area, then it is not significantly
   - Otherwise, the autocorrelation coefficient is significant.

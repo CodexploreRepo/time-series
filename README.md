@@ -23,8 +23,9 @@
   - **Simple Moving Average (SMA)** - (a.k.a _rolling mean_): overall trend direction
   - **Exponential Moving Average (EMA)**: short-term trend as EMA gives more weightage to recent data points.
   - **Moving Average Convergence Divergence (MACD)**: to identify shifts in market momentum and potential breakout points
-  - **Relative Strength Index (RSI)**: measures the speed and change of price movements
+  - **Relative Strength Index (RSI)**: identify **overbought** or **oversold** conditions in an asset's price by measuring the speed and change of price movements.
   - **Bollinger Bands**: measure the volatility of a market and identify potential overbought or oversold conditions.
+- [Fourier Transformation](./docs/fe/fourier_transformation.md)
 
 ## Modelling
 
@@ -64,6 +65,26 @@
 - Create conda env: `conda create -n time-series`
 - Activate conda env: `conda activate time-series`
 - Install dependencies: `conda install --file requirements.txt`
+
+### Tensorflow Installation
+
+- Install TensorFlow dependencies from Apple Conda channel
+
+```shell
+conda install -c apple tensorflow-deps
+```
+
+- Install TensorFlow Base (Apple's fork of TensorFlow is called tensorflow-macos)
+
+```shell
+python -m pip install tensorflow-macos
+```
+
+- Install Apple's `tensorflow-metal` to leverage Apple Metal (Apple's GPU framework) for M1, M1 Pro, M1 Max GPU acceleration.
+
+```shell
+python -m pip install tensorflow-metal
+```
 
 ## Others
 
