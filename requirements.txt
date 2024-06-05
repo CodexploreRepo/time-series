@@ -7,3 +7,4 @@ pmdarima
 seaborn
 statsmodels
 skforecast
+xgboost

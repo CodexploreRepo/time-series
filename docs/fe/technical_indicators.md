@@ -69,6 +69,25 @@ df['EMA'] = calculate_ema(df['Price'], window=window_size)
     - Negative Histogram: Indicates increasing bearish momentum.
     - Divergence between MACD Histogram and price movements can signal potential trend reversals.
 
+```Python
+EMA_12 = pd.Series(df['Close'].ewm(span=12, min_periods=12).mean())
+EMA_26 = pd.Series(df['Close'].ewm(span=26, min_periods=26).mean())
+df['MACD'] = pd.Series(EMA_12 - EMA_26)
+df['MACD_signal'] = pd.Series(df.MACD.ewm(span=9, min_periods=9).mean())
+
+# Plot MACD:
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+fig = make_subplots(rows=2, cols=1)
+fig.add_trace(go.Scatter(x=df.Date, y=df.Close, name='Close'), row=1, col=1)
+fig.add_trace(go.Scatter(x=df.Date, y=EMA_12, name='EMA 12'), row=1, col=1)
+fig.add_trace(go.Scatter(x=df.Date, y=EMA_26, name='EMA 26'), row=1, col=1)
+fig.add_trace(go.Scatter(x=df.Date, y=df['MACD'], name='MACD'), row=2, col=1)
+fig.add_trace(go.Scatter(x=df.Date, y=df['MACD_signal'], name='Signal line'), row=2, col=1)
+fig.show()
+```
+
 ## Relative Strength Index (RSI)
 
 - Relative Strength Index (RSI) measures the speed and change of price movements.
