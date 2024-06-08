@@ -59,6 +59,8 @@
 ### Deep Learning Models
 
 - [Introduction](./docs/dl/intro.md)
+- [Data Window, Batch, Epoch & Shuffling]
+- [Baseline Model]
 
 ## How-to Guide
 
